@@ -1,0 +1,29 @@
+create table market_member(
+memberid VARCHAR2(20) primary key,
+memberpw varchar2(100) not null,
+membername varchar2(20) not null,
+phone VARCHAR2(20) not null,
+enabled number(1) default 1,
+rolename VARCHAR2(20) default 'Role_USER'
+)
+
+create table market_board(
+boardnum number primary key,
+memberid VARCHAR2(20) not null,
+memberid references market_member(memberid) on delete cascade,
+title VARCHAR2(200) not null,
+contents VARCHAR2(2000) not null,
+inputdate date,
+category VARCHAR2(50),
+soldout char(1) default 'N',
+buyerid VARCHAR2(20)
+)
+
+create table market_reply(
+replynum number primary key,
+boardnum number ,
+boardnum REFERENCES market_board(boardnum) on delete cascade,
+memberid VARCHAR2 not null,
+replytext VARCHAR2,
+inputdate date DEFAULT sysdate
+)

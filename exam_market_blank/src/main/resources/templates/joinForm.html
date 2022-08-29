@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/default.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function formCheck() {
+            
+            let memberid = $("#memberid").val();
+            
+            if (id.length < 3 || id.length > 10) {
+                alert("아이디는 3 ~ 10 사이여야 합니다.");
+                return false;
+            }
+
+            let memberpw = $("#memberpw").val();
+            if (memberpw.length < 3 || memberpw.length > 10) {
+                alert("패스워드는 3 ~ 10 사이여야 합니다.");
+                $("#memberpw").focus();
+                return false;
+            }
+
+            let membername = $("#membername").val();
+            if (membername.length < 1) {
+                alert("이름을 입력하세요.");
+                $("#membername").focus();
+                return false;
+            }
+            let phone = $("#phone").val();
+            if (phone.length < 1) {
+                alert("전화번호를 입력하세요.");
+                $("#phone").focus();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>[회원가입]</h1>
+<div id="container">
+        <h1 class="center">[ 회원가입 폼 ]</h1>
+        <form th:action="@{/member/join}" th:object="${createMemberForm}" th:method="post" onsubmit="return formCheck()">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <td>
+                        <input type="text" th:field="*{memberid}">
+                        <div th:class="error" th:errors="*{memberid}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>비밀번호</th>
+                    <td>
+                        <input type="password" th:field="*{memberpw}">
+                        <div th:class="error" th:errors="memberpw"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>이름</th>
+                    <td>
+                        <input type="text" th:field="*{membername}">
+                        <div th:class="error" th:errors="*{membername}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>전화번호</th>
+                    <td>
+                        <input type="text" th:field="*{phone}">
+                        <div th:class="error" th:errors="*{phone}"></div>
+                    </td>
+                </tr>
+                
+            </table>
+            <p class="center">
+                <input type="submit" value="가입하기">
+                <input type="button" value="다시쓰기" onclick="location.href='/joinform'">
+            </p>
+        </form>
+    </div>
+</body>
+</html>
